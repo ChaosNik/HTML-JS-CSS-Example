@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+	<head>
+		<style>
+			.center
+			{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.list
+			{
+				display: flex;
+				flex-flow: column;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
+		<script>
+			function init()
+			{
+				var selection = localStorage.getItem("selection");
+				var contacts = JSON.parse(localStorage.getItem("contacts"));
+				for(var i = 0; i < contacts.length; ++i)
+				{
+					var contact = contacts[i];
+					if(contact.name == selection)
+					{
+						console.log(contact);
+						document.getElementById("root").innerHTML=
+							"<h1>" + contact.name + "</h1>" + 
+							"<h3>" + contact.about + "</h3>" + 
+							"<h3>" + contact.mob + "</h3>" + 
+							"<h3>" + contact.work + "</h3>" + 
+							"<h3>" + contact.fax + "</h3>" + 
+							"<h3>" + contact.mail + "</h3>" + 
+							"<h3>" + contact.other + "</h3>";
+					}
+				}
+			}
+		</script>
+	</head>
+	<body onload = "init()">
+		<div class = "center">
+			<div id = "root" class = "list">
+			</div>
+		</div>
+	</body>
+</html>

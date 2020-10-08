@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+	<head>
+		<style>
+			.menu
+			{
+				display: flex;
+				height: 64px;
+				background-color: blue;
+			}
+			.menu-items
+			{
+				display: flex;
+				margin: 10px;
+			}
+			.menu-link
+			{
+				color: white;
+				margin: 10px;
+			}
+			.menu-link :visited
+			{
+				color: white;
+				cursor: pointer;
+			}
+			.menu-item
+			{
+				color: white;
+				margin: 10px;
+				margin-top: 0;
+				line-height: 7px;
+				cursor: pointer;
+				text-decoration: underline;
+			}
+			.table
+			{
+				border-color: black;
+			}
+			.table-row
+			{
+				display: flex;
+				border: solid black 2px;
+			}
+			.table-row-picture
+			{
+				width: 100px;
+				height: 100px;
+				text-align: center;
+			}
+			.table-row-right
+			{
+				display: flex;
+				flex-flow: column;
+				width: 100%;
+				border-left: solid black 2px;
+			}
+			.table-row-name
+			{		
+				height: 50px;
+				border-bottom: solid black 2px;
+				font-weight: bold;
+				font-size: 14px;
+			}
+			.table-row-description
+			{
+				height: 50px;
+				font-style: italic;
+				font-size: 11px;
+			}
+		</style>
+		<script>
+			function init()
+			{
+				//var contacts = [];
+				//var contact = {name:"Milan Milanovic", about:"Simpatican covjek", mob:"000000000", work:"123123123", fax:"123123123", mail:"me@gmail.com", other:"nah"};
+				//contacts.push(contact);
+				//contact = {name:"Dusan Dusanic", about:"Dosadan covjek", mob:"111111111", work:"123231123", fax:"332123123", mail:"again@gmail.com", other:"nah"};
+				//contacts.push(contact);
+				//localStorage.setItem("contacts", JSON.stringify(contacts));
+				refreshContacts(table);
+			}
+			function deleteAllContacts(element)
+			{
+				localStorage.clear();
+				refreshContacts(element);
+			}
+			function refreshContacts(element)
+			{
+				table = document.getElementById("table");
+				table.innerHTML = "";
+				var contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+				for(var i = 0; i < contacts.length; ++i)
+				{
+					var contact = contacts[i];
+					table.innerHTML+=
+						"<div id = \"table\" class = \"table\">" +
+						"	<div class = \"table-row\" onclick = \"rowClicked(this)\">" +
+						"		<div class = \"table-row-picture\">" +
+						"			<img src = \"http\" alt = \"name\"/>" +
+						"		</div>"+
+						"		<div class = \"table-row-right\">" +
+						"			<div class = \"table-row-name\">" +
+						"				<p>" + contact.name + "</p>"+
+						"			</div>" +
+						"			<div class = \"table-row-description\">" +
+						"				<p>" + contact.about + "</p>" +
+						"			</div>" +
+						"		</div>" +
+						"	</div>" +
+						"</div>"
+				}
+			}
+			function rowClicked(element)
+			{
+				window.location.href = "contact.html"
+				var elem = element.getElementsByClassName("table-row-name")[0].getElementsByTagName("p")[0].innerHTML;
+				localStorage.setItem("selection", elem)
+			}
+		</script>
+	</head>
+	<body onload = "init()">
+		<div class = "menu">
+			<div class = "menu-items">
+				<div class = "menu-link"><a href = "newContact.html">Novi kontakt</a></div>
+				<div class = "menu-item"><p onclick = "deleteAllContacts(this)">Izbrisi kontakte</p></div>
+				<div class = "menu-item"><p onclick = "refreshContacts(this)">Osvjezi sve</p></div>
+			</div>
+		</div>
+		<div id = "table" class = "table">
+			<div class = "table-row" onclick = "rowClicked(this)">
+				<div class = "table-row-picture">
+					<img src = "http" alt = "name"/>
+				</div>
+				<div class = "table-row-right">
+					<div class = "table-row-name">
+						<p>Ime i prezime</p>
+					</div>
+					<div class = "table-row-description">
+						<p>Opis ovog kontakta</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

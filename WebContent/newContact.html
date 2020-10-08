@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+	<head>
+		<style>
+			.root
+			{
+				
+			}
+			.form-entries
+			{
+				display: flex;
+				flex-flow: column;
+				width: 15%;
+			}
+			.button
+			{
+				margin-top: 2%;
+				width: 50%;
+				align-self: center;
+			}
+		</style>
+		<script>
+			function addEntry()
+			{
+				var contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+				var name = document.getElementById("name").value;
+				var about = document.getElementById("about").value;
+				var mob = document.getElementById("mob").value;
+				var work = document.getElementById("work").value;
+				var fax = document.getElementById("fax").value;
+				var other = document.getElementById("other").value;
+				var contact = {name:name, about:about, mob:mob, work:work, fax:fax, other:other};
+				console.log(contact);
+				contacts.push(contact);
+				localStorage.setItem('contacts', JSON.stringify(contacts));
+			}
+		</script>
+	</head>
+	<body>
+		<div class = "root">
+			<form>
+				<div class = "form-entries">
+					Ime
+					<input id = "name" type = "text" name = "name"/>
+					Opis
+					<input id = "about" type = "text" name = "about"/>
+					Mobilni
+					<input id = "mob" type = "text" name = "mob"/>
+					Poslovni
+					<input id = "work" type = "text" name = "work"/>
+					Fax
+					<input id = "fax" type = "text" name = "fax"/>
+					Ostalo
+					<input id = "other" type = "text" name = "other"/>
+					<br/>
+					<input class = "button" type = "button" onclick="addEntry()" value="Dodaj"></input>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
